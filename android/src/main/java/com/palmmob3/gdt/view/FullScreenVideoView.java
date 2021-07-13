@@ -1,4 +1,4 @@
-package com.qq.e.union.demo.view;
+package com.palmmob3.gdt.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

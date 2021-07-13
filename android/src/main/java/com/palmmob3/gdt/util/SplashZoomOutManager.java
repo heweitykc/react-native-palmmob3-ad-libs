@@ -1,4 +1,4 @@
-package com.qq.e.union.demo.util;
+package com.palmmob3.gdt.util;
 
 import android.animation.Animator;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.comm.managers.GDTADManager;
 import com.qq.e.union.adapter.util.PxUtils;
-import com.qq.e.union.demo.view.ViewUtils;
+import com.palmmob3.gdt.view.ViewUtils;
 
 /*
  * created by timfeng 2020/11/14

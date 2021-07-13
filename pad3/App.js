@@ -9,25 +9,66 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View,TouchableHighlight,requireNativeComponent } from 'react-native';
 import Palmmob3AdLibs from 'react-native-palmmob3-ad-libs';
 
-export default class App extends Component<{}> {
+const SplashView = requireNativeComponent("GDTSplashView");
+
+export default class App extends Component {
   state = {
     status: 'starting',
-    message: '--'
+    message: '--',
+    inited:false
   };
-  componentDidMount() {
-    Palmmob3AdLibs.initGDT('1111964523');
-    Palmmob3AdLibs.setGDTChannel(10);
+
+  async componentDidMount() {
+    await Palmmob3AdLibs.initGDT('1111964523');
+    await Palmmob3AdLibs.setGDTChannel(10);
+    this.setState({
+      inited:true
+    });
   }
+
+  onAdError(evt) {
+    console.log(evt.nativeEvent);
+  }
+
+  onAdClick(evt) {
+    console.log(evt.nativeEvent);
+  }
+
+  onAdClose(evt) {
+    console.log(evt.nativeEvent);
+    this.setState({
+      inited:false
+    });
+  }
+
+  onAdLoad(evt) {
+    console.log(evt.nativeEvent);
+  }
+
+  onAdShow(evt) {
+    console.log(evt.nativeEvent);
+  }
+
   render() {
+    if(this.state.inited){
+      return ( 
+        <View style={styles.container}>
+          <SplashView style={styles.splash} PosId='3032809667717528' 
+              onAdError={this.onAdError.bind(this)}  onAdClick={this.onAdClick.bind(this)} 
+              onAdClose={this.onAdClose.bind(this)}  onAdLoad={this.onAdLoad.bind(this)} 
+              onAdShow={this.onAdShow.bind(this)}  />
+        </View>
+      );
+    }
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>☆Palmmob3AdLibs example☆</Text>
         <Text style={styles.instructions}>STATUS: {this.state.status}</Text>
         <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
-        <Text style={styles.instructions}>{this.state.message}</Text>
+        <Text style={styles.instructions}>{this.state.message}</Text>        
       </View>
     );
   }
@@ -38,7 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#00FF00',
   },
   welcome: {
     fontSize: 20,
@@ -50,4 +91,9 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  splash: {    
+    // flex:1,
+    width:"100%",
+    height:"100%"
+  }
 });

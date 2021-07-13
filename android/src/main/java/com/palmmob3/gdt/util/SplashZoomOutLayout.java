@@ -1,4 +1,4 @@
-package com.qq.e.union.demo.util;
+package com.palmmob3.gdt.util;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
