@@ -18,12 +18,8 @@ export default class App extends Component<{}> {
     message: '--'
   };
   componentDidMount() {
-    Palmmob3AdLibs.sampleMethod('Testing', 123, (message) => {
-      this.setState({
-        status: 'native callback received',
-        message
-      });
-    });
+    Palmmob3AdLibs.initGDT('1111964523');
+    Palmmob3AdLibs.setGDTChannel(10);
   }
   render() {
     return (
