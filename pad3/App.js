@@ -9,10 +9,12 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View,TouchableHighlight,requireNativeComponent } from 'react-native';
+import { Platform, StyleSheet, Text, View,TouchableHighlight,requireNativeComponent,NativeEventEmitter } from 'react-native';
 import Palmmob3AdLibs from 'react-native-palmmob3-ad-libs';
 
 const SplashView = requireNativeComponent("GDTSplashView");
+const eventEmitter = new NativeEventEmitter(Palmmob3AdLibs)
+const REWARD_EVT_PREFIX = 'RewardAd_';
 
 export default class App extends Component {
   state = {
@@ -21,12 +23,26 @@ export default class App extends Component {
     inited:false
   };
 
+  subscribeRewardEvent(type){
+    eventEmitter.addListener(REWARD_EVT_PREFIX + type, (event) => {
+      console.log(event);      
+    })
+  }
+
   async componentDidMount() {
     await Palmmob3AdLibs.initGDT('1111964523');
     await Palmmob3AdLibs.setGDTChannel(10);
     this.setState({
-      inited:true
+      inited:false
     });
+
+    this.subscribeRewardEvent('onAdError');
+    this.subscribeRewardEvent('onAdClick');
+    this.subscribeRewardEvent('onAdClose');
+    this.subscribeRewardEvent('onAdLoad');
+    this.subscribeRewardEvent('onAdShow');
+    this.subscribeRewardEvent('onAdComplete');
+    this.subscribeRewardEvent('onAdReward');    
   }
 
   onAdError(evt) {
@@ -52,6 +68,10 @@ export default class App extends Component {
     console.log(evt.nativeEvent);
   }
 
+  showReward(){
+    Palmmob3AdLibs.loadRewardVideo('8052501657212786');
+  }
+
   render() {
     if(this.state.inited){
       return ( 
@@ -65,10 +85,7 @@ export default class App extends Component {
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>☆Palmmob3AdLibs example☆</Text>
-        <Text style={styles.instructions}>STATUS: {this.state.status}</Text>
-        <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
-        <Text style={styles.instructions}>{this.state.message}</Text>        
+        <TouchableHighlight onPress={this.showReward.bind(this)} ><Text style={styles.welcome}>☆Palmmob3AdLibs example☆</Text></TouchableHighlight>
       </View>
     );
   }

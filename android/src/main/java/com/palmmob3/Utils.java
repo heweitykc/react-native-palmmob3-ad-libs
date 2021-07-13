@@ -9,6 +9,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.MapBuilder;
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 
 import java.util.Map;
@@ -20,6 +21,8 @@ public class Utils {
     static public final String AD_CLOSE  = "onAdClose";
     static public final String AD_LOAD   = "onAdLoad";
     static public final String AD_SHOW   = "onAdShow";
+    static public final String AD_COMPLETE  = "onAdComplete";
+    static public final String AD_REWARD    = "onAdReward";
 
     // for fix addView not showing ====
     public static void setupLayoutHack(final ViewGroup view) {
@@ -53,6 +56,13 @@ public class Utils {
         event.putString("message", message);
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(viewid, evt, event);
     }
+
+    public static void emitEvent(ReactContext reactContext, String eventName, String message) {
+        WritableMap p = Arguments.createMap();
+        p.putString("message", message);
+        reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, p);
+    }
+
 
     public static Map getEventType() {
         final String phasedRegistrationNames = "phasedRegistrationNames";
