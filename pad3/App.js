@@ -33,7 +33,7 @@ export default class App extends Component {
     await Palmmob3AdLibs.initGDT('1111964523');
     await Palmmob3AdLibs.setGDTChannel(10);
     this.setState({
-      inited:false
+      inited:true
     });
 
     this.subscribeRewardEvent('onAdError');
