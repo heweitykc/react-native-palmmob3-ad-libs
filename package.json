@@ -1,8 +1,8 @@
 {
   "name": "react-native-palmmob3-ad-libs",
   "title": "React Native Palmmob3 Ad Libs",
-  "version": "1.0.0",
-  "description": "TODO",
+  "version": "1.1.0",
+  "description": "广告库",
   "main": "index.js",
   "files": [
     "README.md",
@@ -23,8 +23,8 @@
     "react-native"
   ],
   "author": {
-    "name": "Your Name",
-    "email": "yourname@email.com"
+    "name": "callee",
+    "email": "heweitykc@gmail.com"
   },
   "license": "MIT",
   "licenseFilename": "LICENSE",
