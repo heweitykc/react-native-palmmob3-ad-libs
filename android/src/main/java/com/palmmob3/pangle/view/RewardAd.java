@@ -105,7 +105,7 @@ public class RewardAd {
 
       @Override
       public void onRewardVideoCached(TTRewardVideoAd ad) {
-        Utils.emitEvent(_reactContext, TAG + "_" + Utils.AD_LOAD, "ad video load");
+        Utils.emitEvent(_reactContext, TAG + "_" + Utils.AD_CACHED, "ad video cacheed");
       }
 
     });

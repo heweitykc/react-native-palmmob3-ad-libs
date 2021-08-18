@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.palmmob.facer"
+        applicationId "com.palmmob.officer"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -147,10 +147,10 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file('/Volumes/work_disk/github/palmmob3_office_client_android/release.keystore')
+            storePassword 'palmmob.office'
+            keyAlias 'office'
+            keyPassword 'palmmob.office'
         }
     }
     buildTypes {

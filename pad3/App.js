@@ -12,7 +12,7 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View,TouchableHighlight,requireNativeComponent,NativeEventEmitter } from 'react-native';
 import Palmmob3AdLibs from 'react-native-palmmob3-ad-libs';
 
-const SplashView = requireNativeComponent("GDTSplashView");
+// const SplashView = requireNativeComponent("GDTSplashView");
 const PangleSplashView = requireNativeComponent("PangleSplashView");
 const eventEmitter = new NativeEventEmitter(Palmmob3AdLibs)
 const REWARD_EVT_PREFIX = 'RewardAd_';
@@ -26,16 +26,16 @@ export default class App extends Component {
 
   subscribeRewardEvent(type){
     eventEmitter.addListener(REWARD_EVT_PREFIX + type, (event) => {
-      console.log(event);
-      if(type == 'onAdLoad'){
+      console.log("subscribeRewardEvent = ", event);
+      if(type == 'onAdCached'){
         Palmmob3AdLibs.showPangleRewardVideo()
       }
     })
   }
 
   async componentDidMount() {
-    await Palmmob3AdLibs.initGDT('1111964523');
-    await Palmmob3AdLibs.setGDTChannel(10);
+    // await Palmmob3AdLibs.initGDT('1111964523');
+    // await Palmmob3AdLibs.setGDTChannel(10);
 
     await Palmmob3AdLibs.initPangle('5207398', "face", true);    
 
@@ -47,6 +47,7 @@ export default class App extends Component {
     this.subscribeRewardEvent('onAdClick');
     this.subscribeRewardEvent('onAdClose');
     this.subscribeRewardEvent('onAdLoad');
+    this.subscribeRewardEvent('onAdCached');
     this.subscribeRewardEvent('onAdShow');
     this.subscribeRewardEvent('onAdComplete');
     this.subscribeRewardEvent('onAdReward');    

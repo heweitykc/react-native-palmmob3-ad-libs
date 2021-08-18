@@ -9,6 +9,7 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.UiThreadUtil;
 
 import com.palmmob3.gdt.view.RewardAd;
 import com.qq.e.comm.managers.GDTADManager;
@@ -55,7 +56,7 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
         if(gdtReward == null){
             return;
         }
-        reactContext.runOnUiQueueThread(new Runnable() {
+        UiThreadUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 gdtReward.showAd();
@@ -77,15 +78,20 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
                 .supportMultiProcess(false)
                 .build();
 
-        TTAdSdk.init(this.reactContext,config,new TTAdSdk.InitCallback() {
+        UiThreadUtil.runOnUiThread(new Runnable() {
             @Override
-            public void success() {
-                promise.resolve(true);
-            }
+            public void run() {
+                TTAdSdk.init(reactContext, config, new TTAdSdk.InitCallback() {
+                    @Override
+                    public void success() {
+                        promise.resolve(true);
+                    }
 
-            @Override
-            public void fail(int code, String msg) {
-                promise.resolve(false);
+                    @Override
+                    public void fail(int code, String msg) {
+                        promise.resolve(false);
+                    }
+                });
             }
         });
     }
@@ -93,8 +99,14 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void loadPangleRewardVideo(String posId, Promise promise) {
         pangleReward = new com.palmmob3.pangle.view.RewardAd(posId, this.reactContext);
-        pangleReward.loadAd();
-        promise.resolve(null);
+
+        UiThreadUtil.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                pangleReward.loadAd();
+                promise.resolve(null);
+            }
+        });
     }
 
     @ReactMethod
@@ -102,13 +114,13 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
         if(pangleReward == null){
             return;
         }
-        reactContext.runOnUiQueueThread(new Runnable() {
+
+        UiThreadUtil.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 pangleReward.showAd();
+                promise.resolve(null);
             }
         });
-
-        promise.resolve(null);
     }
 }

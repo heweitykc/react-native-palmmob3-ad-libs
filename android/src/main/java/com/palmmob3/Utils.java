@@ -20,6 +20,7 @@ public class Utils {
     static public final String AD_CLICK  = "onAdClick";
     static public final String AD_CLOSE  = "onAdClose";
     static public final String AD_LOAD   = "onAdLoad";
+    static public final String AD_CACHED = "onAdCached";
     static public final String AD_SHOW   = "onAdShow";
     static public final String AD_COMPLETE  = "onAdComplete";
     static public final String AD_REWARD    = "onAdReward";
