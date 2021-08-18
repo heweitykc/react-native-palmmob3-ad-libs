@@ -2,8 +2,6 @@
 
 package com.palmmob3;
 
-import android.widget.CheckBox;
-
 import com.bytedance.sdk.openadsdk.TTAdConfig;
 import com.bytedance.sdk.openadsdk.TTAdConstant;
 import com.bytedance.sdk.openadsdk.TTAdSdk;
@@ -11,16 +9,17 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
+
 import com.palmmob3.gdt.view.RewardAd;
-import com.qq.e.ads.rewardvideo.RewardVideoAD;
-import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
 import com.qq.e.comm.managers.GDTADManager;
 import com.qq.e.comm.managers.setting.GlobalSetting;
 
 public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
+
+    private  com.palmmob3.gdt.view.RewardAd gdtReward;
+    private  com.palmmob3.pangle.view.RewardAd pangleReward;
 
     public Palmmob3AdLibsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -46,8 +45,22 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void loadRewardVideo(String posId, Promise promise) {
-        RewardAd ad = new RewardAd(posId, this.reactContext);
-        ad.loadAd();
+        gdtReward = new RewardAd(posId, this.reactContext);
+        gdtReward.loadAd();
+        promise.resolve(null);
+    }
+
+    @ReactMethod
+    public void showRewardVideo(Promise promise) {
+        if(gdtReward == null){
+            return;
+        }
+        reactContext.runOnUiQueueThread(new Runnable() {
+            @Override
+            public void run() {
+                gdtReward.showAd();
+            }
+        });
         promise.resolve(null);
     }
 
@@ -75,5 +88,27 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
                 promise.resolve(false);
             }
         });
+    }
+
+    @ReactMethod
+    public void loadPangleRewardVideo(String posId, Promise promise) {
+        pangleReward = new com.palmmob3.pangle.view.RewardAd(posId, this.reactContext);
+        pangleReward.loadAd();
+        promise.resolve(null);
+    }
+
+    @ReactMethod
+    public void showPangleRewardVideo(Promise promise) {
+        if(pangleReward == null){
+            return;
+        }
+        reactContext.runOnUiQueueThread(new Runnable() {
+            @Override
+            public void run() {
+                pangleReward.showAd();
+            }
+        });
+
+        promise.resolve(null);
     }
 }

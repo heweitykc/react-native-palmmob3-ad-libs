@@ -24,6 +24,7 @@ public class SplashView extends RelativeLayout {
   private ReactContext reactContext;
   private Activity mContext;
   private TTAdNative _ttAdNative;
+  private TTSplashAd _ad;
   private String _posId = "";
   final protected RelativeLayout mContainer;
 
@@ -50,10 +51,12 @@ public class SplashView extends RelativeLayout {
     if(_ttAdNative == null){
       _ttAdNative = TTAdSdk.getAdManager().createAdNative(this.mContext);
     }
+
     mContainer.removeAllViews();
     AdSlot adSlot = new AdSlot.Builder()
             .setCodeId(_posId)
-            .setImageAcceptedSize(1080, 1920)
+//            .setImageAcceptedSize(1080, 1920)
+            .setExpressViewAcceptedSize(1080, 1920)
             .build();
 
     _ttAdNative.loadSplashAd(adSlot, new TTAdNative.SplashAdListener() {
@@ -78,13 +81,35 @@ public class SplashView extends RelativeLayout {
         if (ad == null) {
           return;
         }
+        _ad = ad;
+
+        ad.setSplashInteractionListener(new TTSplashAd.AdInteractionListener() {
+          @Override
+          public void onAdClicked(View view, int type) {
+            Utils.sendEvent(reactContext, getId(), Utils.AD_CLICK, "ad clicked");
+          }
+
+          @Override
+          public void onAdShow(View view, int type) {
+            Utils.sendEvent(reactContext, getId(), Utils.AD_SHOW, "ad exposure");
+          }
+
+          @Override
+          public void onAdSkip() {
+            Utils.sendEvent(reactContext, getId(), Utils.AD_CLOSE, "ad dismissed");
+          }
+
+          @Override
+          public void onAdTimeOver() {
+            Utils.sendEvent(reactContext, getId(), Utils.AD_CLOSE, "ad dismissed");
+          }
+        });
+
         View view = ad.getSplashView();
         if (view != null && mContainer != null) {
           mContainer.removeAllViews();
           mContainer.addView(view);
           Utils.sendEvent(reactContext, getId(), Utils.AD_LOAD, "ad load");
-        }else {
-          //开发者处理跳转到APP主页面逻辑
         }
       }
     }, 3000);

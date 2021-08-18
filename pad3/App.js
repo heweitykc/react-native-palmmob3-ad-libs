@@ -26,7 +26,10 @@ export default class App extends Component {
 
   subscribeRewardEvent(type){
     eventEmitter.addListener(REWARD_EVT_PREFIX + type, (event) => {
-      console.log(event);      
+      console.log(event);
+      if(type == 'onAdLoad'){
+        Palmmob3AdLibs.showPangleRewardVideo()
+      }
     })
   }
 
@@ -73,7 +76,8 @@ export default class App extends Component {
   }
 
   showReward(){
-    Palmmob3AdLibs.loadRewardVideo('8052501657212786');
+    // Palmmob3AdLibs.loadRewardVideo('8052501657212786');
+    Palmmob3AdLibs.loadPangleRewardVideo('946561381');    
   }
 
   render() {
