@@ -4,6 +4,9 @@ package com.palmmob3;
 
 import android.widget.CheckBox;
 
+import com.bytedance.sdk.openadsdk.TTAdConfig;
+import com.bytedance.sdk.openadsdk.TTAdConstant;
+import com.bytedance.sdk.openadsdk.TTAdSdk;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -46,5 +49,31 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
         RewardAd ad = new RewardAd(posId, this.reactContext);
         ad.loadAd();
         promise.resolve(null);
+    }
+
+    @ReactMethod
+    public void initPangle(String appID, String appName, boolean debug,  Promise promise) {
+        TTAdConfig config = new TTAdConfig.Builder()
+                .appId(appID)
+                .useTextureView(true)
+                .appName(appName)
+                .titleBarTheme(TTAdConstant.TITLE_BAR_THEME_DARK)
+                .allowShowNotify(true)
+                .debug(debug)
+                .directDownloadNetworkType(TTAdConstant.NETWORK_STATE_WIFI)
+                .supportMultiProcess(false)
+                .build();
+
+        TTAdSdk.init(this.reactContext,config,new TTAdSdk.InitCallback() {
+            @Override
+            public void success() {
+                promise.resolve(true);
+            }
+
+            @Override
+            public void fail(int code, String msg) {
+                promise.resolve(false);
+            }
+        });
     }
 }
