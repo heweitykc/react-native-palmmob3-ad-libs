@@ -20,8 +20,7 @@ public class Palmmob3AdLibsPackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
-                new SplashViewManager(reactContext),
-                new PangleSplashViewManager(reactContext)
+                new SplashViewManager(reactContext)
         );
     }
 }
