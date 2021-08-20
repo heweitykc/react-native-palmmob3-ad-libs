@@ -12,8 +12,8 @@ import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View,TouchableHighlight,requireNativeComponent,NativeEventEmitter } from 'react-native';
 import Palmmob3AdLibs from 'react-native-palmmob3-ad-libs';
 
-// const SplashView = requireNativeComponent("GDTSplashView");
-const PangleSplashView = requireNativeComponent("PangleSplashView");
+const SplashView = requireNativeComponent("GDTSplashView");
+// const PangleSplashView = requireNativeComponent("PangleSplashView");
 const eventEmitter = new NativeEventEmitter(Palmmob3AdLibs)
 const REWARD_EVT_PREFIX = 'RewardAd_';
 
@@ -34,10 +34,10 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
-    // await Palmmob3AdLibs.initGDT('1111964523');
-    // await Palmmob3AdLibs.setGDTChannel(10);
+    await Palmmob3AdLibs.initGDT('1111964523');
+    await Palmmob3AdLibs.setGDTChannel(10);
 
-    await Palmmob3AdLibs.initPangle('5207398', "face", true);    
+    // await Palmmob3AdLibs.initPangle('5207398', "face", true);    
 
     this.setState({
       inited:true
@@ -77,22 +77,22 @@ export default class App extends Component {
   }
 
   showReward(){
-    // Palmmob3AdLibs.loadRewardVideo('8052501657212786');
-    Palmmob3AdLibs.loadPangleRewardVideo('946561381');    
+    Palmmob3AdLibs.loadRewardVideo('8052501657212786');
+    // Palmmob3AdLibs.loadPangleRewardVideo('946561381');    
   }
 
   render() {
     if(this.state.inited){
       return ( 
         <View style={styles.container}>
-          {/* <SplashView style={styles.splash} PosId='3032809667717528' 
+          <SplashView style={styles.splash} PosId='3032809667717528' 
               onAdError={this.onAdError.bind(this)}  onAdClick={this.onAdClick.bind(this)} 
               onAdClose={this.onAdClose.bind(this)}  onAdLoad={this.onAdLoad.bind(this)} 
-              onAdShow={this.onAdShow.bind(this)}  /> */}
-          <PangleSplashView style={styles.splash} PosId='887541836' 
+              onAdShow={this.onAdShow.bind(this)}  />
+          {/* <PangleSplashView style={styles.splash} PosId='887541836' 
               onAdError={this.onAdError.bind(this)}  onAdClick={this.onAdClick.bind(this)} 
               onAdClose={this.onAdClose.bind(this)}  onAdLoad={this.onAdLoad.bind(this)} 
-              onAdShow={this.onAdShow.bind(this)}  />              
+              onAdShow={this.onAdShow.bind(this)}  />               */}
         </View>
       );
     }
