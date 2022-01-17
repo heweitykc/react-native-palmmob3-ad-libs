@@ -2,9 +2,9 @@
 
 package com.palmmob3;
 
-// import com.bytedance.sdk.openadsdk.TTAdConfig;
-// import com.bytedance.sdk.openadsdk.TTAdConstant;
-// import com.bytedance.sdk.openadsdk.TTAdSdk;
+ import com.bytedance.sdk.openadsdk.TTAdConfig;
+ import com.bytedance.sdk.openadsdk.TTAdConstant;
+ import com.bytedance.sdk.openadsdk.TTAdSdk;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -21,7 +21,7 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
     private final ReactApplicationContext reactContext;
 
     private  com.palmmob3.gdt.view.RewardAd gdtReward;
-//    private  com.palmmob3.pangle.view.RewardAd pangleReward;
+    private  com.palmmob3.pangle.view.RewardAd pangleReward;
 
     public Palmmob3AdLibsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -66,62 +66,72 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
         promise.resolve(null);
     }
 
-    // @ReactMethod
-    // public void initPangle(String appID, String appName, boolean debug,  Promise promise) {
-    //     TTAdConfig config = new TTAdConfig.Builder()
-    //             .appId(appID)
-    //             .useTextureView(true)
-    //             .appName(appName)
-    //             .titleBarTheme(TTAdConstant.TITLE_BAR_THEME_DARK)
-    //             .allowShowNotify(true)
-    //             .debug(debug)
-    //             .directDownloadNetworkType(TTAdConstant.NETWORK_STATE_WIFI)
-    //             .supportMultiProcess(false)
-    //             .build();
+     @ReactMethod
+     public void initPangle(String appID, String appName, boolean debug,  Promise promise) {
+         TTAdConfig config = new TTAdConfig.Builder()
+                 .appId(appID)
+                 .useTextureView(true)
+                 .appName(appName)
+                 .titleBarTheme(TTAdConstant.TITLE_BAR_THEME_DARK)
+                 .allowShowNotify(true)
+                 .debug(debug)
+                 .directDownloadNetworkType(TTAdConstant.NETWORK_STATE_WIFI)
+                 .supportMultiProcess(false)
+                 .build();
 
-    //     UiThreadUtil.runOnUiThread(new Runnable() {
-    //         @Override
-    //         public void run() {
-    //             TTAdSdk.init(reactContext, config, new TTAdSdk.InitCallback() {
-    //                 @Override
-    //                 public void success() {
-    //                     promise.resolve(true);
-    //                 }
+         UiThreadUtil.runOnUiThread(new Runnable() {
+             @Override
+             public void run() {
+                 TTAdSdk.init(reactContext, config, new TTAdSdk.InitCallback() {
+                     @Override
+                     public void success() {
+                         promise.resolve(true);
+                     }
 
-    //                 @Override
-    //                 public void fail(int code, String msg) {
-    //                     promise.resolve(false);
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
+                     @Override
+                     public void fail(int code, String msg) {
+                         promise.resolve(false);
+                     }
+                 });
+             }
+         });
+     }
 
-    // @ReactMethod
-    // public void loadPangleRewardVideo(String posId, Promise promise) {
-    //     pangleReward = new com.palmmob3.pangle.view.RewardAd(posId, this.reactContext);
+     @ReactMethod
+     public void loadPangleRewardVideo(String posId, Promise promise) {
+         pangleReward = new com.palmmob3.pangle.view.RewardAd(posId, this.reactContext);
 
-    //     UiThreadUtil.runOnUiThread(new Runnable() {
-    //         @Override
-    //         public void run() {
-    //             pangleReward.loadAd();
-    //             promise.resolve(null);
-    //         }
-    //     });
-    // }
+         UiThreadUtil.runOnUiThread(new Runnable() {
+             @Override
+             public void run() {
+                 pangleReward.loadAd();
+                 promise.resolve(null);
+             }
+         });
+     }
 
-    // @ReactMethod
-    // public void showPangleRewardVideo(Promise promise) {
-    //     if(pangleReward == null){
-    //         return;
-    //     }
+     @ReactMethod
+     public void showPangleRewardVideo(Promise promise) {
+         if(pangleReward == null){
+             return;
+         }
 
-    //     UiThreadUtil.runOnUiThread(new Runnable() {
-    //         @Override
-    //         public void run() {
-    //             pangleReward.showAd();
-    //             promise.resolve(null);
-    //         }
-    //     });
-    // }
+         UiThreadUtil.runOnUiThread(new Runnable() {
+             @Override
+             public void run() {
+                 pangleReward.showAd();
+                 promise.resolve(null);
+             }
+         });
+     }
+
+    @ReactMethod
+    public void addListener(String eventName) {
+
+    }
+
+    @ReactMethod
+    public void removeListeners(Integer count) {
+
+    }
 }
