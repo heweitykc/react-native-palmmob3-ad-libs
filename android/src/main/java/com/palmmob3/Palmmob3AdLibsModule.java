@@ -13,7 +13,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.UiThreadUtil;
 
 import com.palmmob3.gdt.view.RewardAd;
-import com.qq.e.comm.managers.GDTADManager;
+import com.qq.e.comm.managers.GDTAdSdk;
 import com.qq.e.comm.managers.setting.GlobalSetting;
 
 public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
@@ -35,7 +35,7 @@ public class Palmmob3AdLibsModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void initGDT(String appID, Promise promise) {
-        GDTADManager.getInstance().initWith(reactContext, appID);
+        GDTAdSdk.init(reactContext.getApplicationContext(), appID);
         promise.resolve(null);
     }
 

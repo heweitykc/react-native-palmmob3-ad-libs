@@ -68,7 +68,7 @@ public class RewardAd implements RewardVideoADListener {
   @Override
   public void onVideoCached() {
     Log.i(TAG, "onVideoCached");
-    Utils.emitEvent(_reactContext, TAG + "_" + Utils.AD_LOAD, "ad video load");
+    // Utils.emitEvent(_reactContext, TAG + "_" + Utils.AD_LOAD, "ad video load");
 //    this.showAd();
   }
 
