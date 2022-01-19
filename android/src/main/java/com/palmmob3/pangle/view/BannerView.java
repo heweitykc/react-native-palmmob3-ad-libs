@@ -46,18 +46,18 @@ public class BannerView extends RelativeLayout implements  TTNativeExpressAd.AdI
     this._posId = posId;
   }
 
-  public void showAd() {
+  public void showAd(int w, int h) {
     Log.d(TAG, "showAd: posId=" + _posId);
-    loadAd();
+    loadAd(w, h);
   }
 
-  private void loadAd() {
+  private void loadAd(int w, int h) {
 
     AdSlot adSlot = new AdSlot.Builder()
             .setCodeId(this._posId) //广告位id
             .setSupportDeepLink(true)
-            .setAdCount(3) //请求广告数量为1
-            .setExpressViewAcceptedSize(300,75)
+            .setAdCount(1) //请求广告数量为1
+            .setExpressViewAcceptedSize(w,w * (85/300))
             .setAdLoadType(TTAdLoadType.LOAD)
             .build();
 
