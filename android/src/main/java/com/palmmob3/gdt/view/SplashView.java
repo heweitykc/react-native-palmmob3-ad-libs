@@ -8,11 +8,11 @@ import android.app.Activity;
 import com.facebook.react.bridge.ReactContext;
 import com.palmmob3.R;
 import com.palmmob3.Utils;
+import com.palmmob3.gdt.util.DownloadConfirmHelper;
 import com.qq.e.ads.splash.SplashAD;
 import com.qq.e.ads.splash.SplashADZoomOutListener;
 import com.qq.e.comm.util.AdError;
 
-import static com.facebook.react.bridge.UiThreadUtil.runOnUiThread;
 
 public class SplashView extends RelativeLayout implements SplashADZoomOutListener {
 
@@ -103,6 +103,9 @@ public class SplashView extends RelativeLayout implements SplashADZoomOutListene
   @Override
   public void onADLoaded(long expireTimestamp) {
     Log.d(TAG,"onADLoaded");
+    if (DownloadConfirmHelper.USE_CUSTOM_DIALOG) {
+      _splashAD.setDownloadConfirmListener(DownloadConfirmHelper.DOWNLOAD_CONFIRM_LISTENER);
+    }
     Utils.sendEvent(reactContext, getId(), Utils.AD_LOAD, "ad load");
   }
 }
