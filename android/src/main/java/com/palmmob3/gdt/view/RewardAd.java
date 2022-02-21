@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.facebook.react.bridge.ReactContext;
 import com.palmmob3.R;
 import com.palmmob3.Utils;
+import com.palmmob3.gdt.util.DownloadConfirmHelper;
 import com.qq.e.ads.rewardvideo.RewardVideoAD;
 import com.qq.e.ads.rewardvideo.RewardVideoADListener;
 import com.qq.e.ads.rewardvideo.ServerSideVerificationOptions;
@@ -58,6 +59,9 @@ public class RewardAd implements RewardVideoADListener {
   @Override
   public void onADLoad() {
     Log.i(TAG, "onADLoad");
+    if (DownloadConfirmHelper.USE_CUSTOM_DIALOG) {
+      _rvad.setDownloadConfirmListener(DownloadConfirmHelper.DOWNLOAD_CONFIRM_LISTENER);
+    }
     _isLoadSuccess = true;
     Utils.emitEvent(_reactContext, TAG + "_" + Utils.AD_LOAD, "ad load");
   }
