@@ -47,7 +47,7 @@ public class Utils {
                     View.MeasureSpec.makeMeasureSpec(view.getMeasuredHeight(), View.MeasureSpec.EXACTLY));
             w = child.getMeasuredWidth();
             h = child.getMeasuredHeight();
-            Log.d("layout", "w=" + w + ", h=" + h);
+            // Log.d("layout", "w=" + w + ", h=" + h);
             child.layout(0, 0, w, h);
         }
     }
