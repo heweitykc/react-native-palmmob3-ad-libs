@@ -82,7 +82,7 @@ dependencies {
     //noinspection GradleDynamicVersion
 
     implementation 'com.qq.e.union:union:+'
-    implementation 'com.pangle.cn:ads-sdk-pro:4.2.1.0'
+    implementation 'com.pangle.cn:ads-sdk-pro:4.5.2.2'
 
     implementation fileTree(dir: "libs", include: ["*.*"])
     implementation 'com.facebook.react:react-native:+'              // From node_modules
