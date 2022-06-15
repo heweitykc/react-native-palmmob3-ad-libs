@@ -32,8 +32,7 @@ public class RewardAd {
     public void loadAd() {
         _isLoadSuccess = false;
         AdSlot adSlot = new AdSlot.Builder()
-                .setCodeId(_posId)
-                .setDownloadType(TTAdConstant.DOWNLOAD_TYPE_POPUP)
+                .setCodeId(_posId)                
                 .setExpressViewAcceptedSize(500,500)
                 .setOrientation(TTAdConstant.VERTICAL)
                 .build();
