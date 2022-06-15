@@ -1,6 +1,7 @@
 package com.palmmob3.pangle.view;
 
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.bytedance.sdk.openadsdk.AdSlot;
@@ -77,9 +78,14 @@ public class RewardAd {
 
                     @Override
                     public void onRewardVerify(boolean rewardVerify, int rewardAmount, String rewardName, int errorCode, String errorMsg) {
-                        String logString = "verify:" + rewardVerify + " amount:" + rewardAmount +
-                                " name:" + rewardName + " errorCode:" + errorCode + " errorMsg:" + errorMsg;
-                        Utils.emitEvent(_reactContext, TAG + "_" + Utils.AD_REWARD, logString);
+//                        String logString = "verify:" + rewardVerify + " amount:" + rewardAmount +
+//                                " name:" + rewardName + " errorCode:" + errorCode + " errorMsg:" + errorMsg;
+//                        Utils.emitEvent(_reactContext, TAG + "_" + Utils.AD_REWARD, logString);
+                    }
+
+                    @Override
+                    public void onRewardArrived(boolean b, int i, Bundle bundle) {
+                        Utils.emitEvent(_reactContext, TAG + "_" + Utils.AD_REWARD, "");
                     }
 
                     @Override
